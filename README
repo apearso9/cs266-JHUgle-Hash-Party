@@ -1,0 +1,107 @@
+=======================================================================
+README TEMPLATE for Assignment 7 (JHUgle Hash Party)
+-----------------------------------------------------------------------
+Add your information below each provided prompt, between ---- and ====.
+Do not change the order or structure of this file. 
+
+=======================================================================
+Partner full names & JHED logins
+-----------------------------------------------------------------------
+Allison Love Pearson apearso9
+Shane Thomas Williams swill255
+=======================================================================
+APPROACH TAKEN
+Which hashmap approaches did you try, in what order, and why did you
+choose them? What specific tweaks to HashMap or JHUgle improved or
+made things worse?  Include failed or abandoned attempts if any, and
+why. Summarize all the different ways you developed, evaluated and
+improved your hashmaps and the JHUgle application.
+-----------------------------------------------------------------------
+First, we decided to implement a linear implementation because we decided
+that this would be easiest. However, after writing it, we were still getting
+a strangely long runtime in XTime. While the code was working and correctly
+outputting the URL's, it was taking over 7 or 8 seconds on apache.txt,
+and was taking at least 5 minutes on random164.txt. As a result of this,
+we spent many hours troubleshooting our code, cleaning things up,
+attempting to make each method more efficient to cut down on runtime. We
+managed to get apache down to 6 seconds, but we knew that this was still
+way too much time. After a while, we realized that in our find(key) method,
+we were just checking the entire array of entries rather than stopping as
+soon as it hit a null key. As soon as we did this, our speed increased
+tenfold, and we were able to start creating other implementations.
+
+We then created a quadratic implementation. This took advantage of the mod
+operation much more than the linear one did, and because of that, we
+expected it to be significantly faster. However, it ended up being around
+the same as the linear implementation, and since we took more care writing
+the linear implementation, we turned that in as our final HashMap and
+included the quadratic implementation as HashMap2, a supplemental implementation.
+
+Finally, we created a chaining implementation just to get that additional
+perspective. However, we were never able to get that one to fully run
+correctly, and ultimately decided that since we were using a linked list
+anyway, it would certainly be slower than any open addressing implementation.
+So, in the end, we stuck with our linear implementation.
+
+=======================================================================
+BENCHMARK DATA
+Include XTime results, for each hash map implementation you tried, along
+with information about the input data sets and operation sequences used.
+-----------------------------------------------------------------------
+Forming the HashMap...
+
+For APACHE.TXT (5.54 MB):
+Linear: 682 ms, 43004 kb
+Quadratic: 747 ms, 43065 kb
+
+For JOANNE.TXT (very short):
+Linear: 13 ms, 666 kb
+Quadratic: 15 ms, 667 kb
+
+For RANDOM164.TXT (12 MB):
+Linear: 1534 ms, 169261 kb
+Quadratic: 1708 ms, 164750 kb
+
+We did not get a working implementation of HashMapChaining, so we
+were not able to run XTime on it at any point.
+=======================================================================
+DISCUSSION/ANALYSIS
+Provide an analysis of your benchmark data and conclusions. Why did
+you choose your final HashMap implementation as the best one? What 
+results were surprising and which were expected?
+-----------------------------------------------------------------------
+As can be seen in our data, the linear and quadratic implementations
+were actually very similar in terms of running time and space, especially
+on smaller files. However, when running files such as Random164,
+linear did save some time- around 200 ms on average. This was pretty much
+what we expected after our research into different probing implementations.
+While linear does have a higher chance of clustering, if the capacity is
+always updated to a prime or a number with few factors (which we did),
+it avoids that problem. Mainly, the benefit of linear probing is that
+the keys with collisions are closer together, so it is easier for them
+to be found from our "find" method. Thus, it wasn't too much of a shock
+that linear was slightly faster than quadratic. We chose linear as our
+final implementation because it was fastest and we were most confident
+that it would pass any covered tests in Gradescope.
+
+=======================================================================
+PARTNER CONTRIBUTIONS
+How did you work together? What were the primary contributions of each
+partner?
+-----------------------------------------------------------------------
+Allison created the file read in and the initial linear probing implementation.
+Shane cleaned up this implementation and worked on the user input section
+of JHUgle, creating the stack to output the different queries and URL's for
+the user. Allison also created the quadratic probing implementation, and
+Shane created the chaining implementation. Allison also created the README.
+Shane created most of the tests for MapTest and HashMapTest.
+
+Working on this project, we started out working very separately- I would do
+a piece of the code and then push it to GitHub so Shane could work on it
+because we were on very opposite schedules. However, after we discovered
+how many problems our code had, we realized a much better method would be
+to sit down together and just work on the same computer. This made things far
+easier. In the end, we both worked on cleaning up the code and running XTime
+to evaluate which would be our best implementation.
+
+=======================================================================
